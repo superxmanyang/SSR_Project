@@ -1,13 +1,33 @@
 <template>
   <div>
+    <!-- 这个是一个公共组件 default-->
     <!-- 渲染头部组件 -->
-    <Header/>>
+    <Header/>
 
     <!-- 页面的占位符，类似于router-view -->
     <nuxt />
+
+
     footer
   </div>
 </template>
+
+
+<script>
+
+import Header from "@/components/header";
+//导入header头部组件
+export default {
+    
+  // 注册组件
+  components:{
+    Header
+  }
+}
+</script>
+
+
+
 
 <style>
 html {
