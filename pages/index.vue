@@ -19,15 +19,18 @@
         <!-- tab栏 -->
         <el-row class="search-tab" type="flex">
           <span v-for="(item,index) in options" :key="index"
-          @click="handleClick(index)"><i>{{item.name}}</i>
+          @click="handleClick(index)"
+          :class="{active:current===index}"
+          ><i>{{item.name}}</i>
           </span>
+          <!-- :class="{active:current===index}" 对象是键值对 然后从左边到右边 -->
           <!-- 传一个index就知道点击的是哪个 -->
         </el-row>
 
         <!-- 输入框 -->
         <el-row class="search-input" align="middle" type="flex">
           <input :placeholder="options[current].placeholder"/>
-                因为会改变所以要动态 options里面的数组
+                <!-- 因为会改变所以要动态 options里面的数组 -->
           <i class="el-icon-search"></i>
         </el-row>
       </div>
@@ -83,6 +86,10 @@ export default {
   methods:{
     handleClick(index){
 
+      if(index===2){
+        this.$router.push("/air")
+      }
+
     this.current = index;
     // console.log(this);
     // 为什么是组件因为打印是整个组件里面的一个元素
@@ -94,6 +101,7 @@ export default {
 
 <style scoped lang="less">
 .container {
+  // min-width最小宽度
   min-width: 1000px;
   margin: 0 auto;
   position: relative;
