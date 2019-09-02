@@ -4,15 +4,16 @@
     <el-carousel>
       <el-carousel-item v-for="(item,index) in banners" :key="index">
         <div class="banner-image" 
-        :style="`background:url(${item.url}) center center no-repeat;background-size:contain contain;
-        `">
-        <!-- background-size:contain contain;
-        把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。 -->
+        :style="`background:url(${$axios.defaults.baseURL}${item.url}) center center no-repeat;background-size:contain contain;`">          
+                                <!-- 从console dir打印出来的 然后拼接 -->
+                               
         </div>
       </el-carousel-item>
     </el-carousel>
   </div>
 </template>
+ <!-- background-size:contain contain;
+        把图像图像扩展至最大尺寸，以使其宽度和高度完全适应内容区域。 -->
 
 <script>
 export default {
@@ -20,14 +21,24 @@ export default {
     return {
       // 轮播图数据
       banners: [
-        {
-          url: "http://157.122.54.189:9095/assets/images/th03.jfif"
-        },
-        {
-          url: "http://157.122.54.189:9095/assets/images/th04.jfif"
-        }
+       
       ]
     };
+  },
+  mounted(){
+    // 原本我们是用import 引入
+    // 然后 this.$axios 改写法是通用标准 nuxt帮我们封装好了 如果没有nuxt我们在普通Vue文件里还要添加Vue.prototype.$axios =$axios
+    
+    // url请求方式看接口文档
+    this.$axios({
+      url:"/scenics/banners"
+    }).then(res=>{
+      
+      const{data}=res.data;
+      
+      this.banners =data
+    })
+   console.dir(this.$axios);
   }
 };
 </script>
