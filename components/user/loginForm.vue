@@ -54,8 +54,15 @@ export default {
       this.$refs.form.validate(valid => {
         // 当valid的值等于true说明表单验证通过
         if (valid) {
+            //请求登陆接口 目的为了想后台拿数据，后台会给你数据
+            this.$axios({
+                url:'/accounts/login',
+                method:'post',
+                data:this.form
+            }).then(res=>{
+                console.log(res);
+            })
             
-            console.log(this.form);
         } else {
           console.log("验证失败");
         }
