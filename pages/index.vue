@@ -84,10 +84,14 @@ export default {
   },
 
   methods:{
+    //点击搜索的tab栏时候触发
     handleClick(index){
-
+  
+  // 点击索引是时候，代表点击是机票
       if(index===2){
-        this.$router.push("/air")
+        // 路由规则虽然pages可以直接访问，不需要配置
+        // 但是可以通用
+        this.$router.push("/air");
       }
 
     this.current = index;
