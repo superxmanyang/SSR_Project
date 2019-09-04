@@ -20,9 +20,14 @@
       </el-row>
 
       <!-- 登陆跳转 -->
-      <div>
+      <!-- v-if v-else 简单理解 就是得到的boolean再来渲染页面 -->
+      <div v-if="!$store.state.user.userInfo.token">
         <nuxt-link to="/user/login">登陆 / 注册</nuxt-link>
       </div>
+        
+        <div v-else>
+          {{$store.state.user.userInfo.user.nickname}}
+        </div>
     </el-row>
   </div>
   <!-- // 这里设置一个单独的组件是为了有公共的样式 -->
@@ -30,7 +35,7 @@
 
 <script>
 export default {
-
+   //组件加载
    mounted(){
         console.log(this.$store.state.user.userInfo.token)
     }
