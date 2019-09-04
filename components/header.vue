@@ -22,7 +22,7 @@
       <!-- 登陆跳转 -->
       <!-- v-if v-else 简单理解 就是得到的boolean再来渲染页面 -->
       <!-- <div v-if="!$store.state.user.userInfo.token"> -->
-        <div v-if="false">
+       <div v-if="!$store.state.user.userInfo.token"> 
         <nuxt-link to="/user/login">登陆 / 注册</nuxt-link>
       </div>
 
@@ -40,7 +40,8 @@
           </span>
           <el-dropdown-menu slot="dropdown">
             <el-dropdown-item>个人中心</el-dropdown-item>
-            <el-dropdown-item>退出</el-dropdown-item>
+             <!-- click.native 给第三方组件添加事件需要加上native -->
+            <el-dropdown-item @click.native="handleLogout">退出</el-dropdown-item>
           </el-dropdown-menu>
         </el-dropdown>
       </div>
@@ -54,7 +55,20 @@ export default {
   //组件加载
   mounted() {
     // console.dir(this.$axios);
-    console.log(this.$store.state.user.userInfo.token);
+    // console.log(this.$store.state.user.userInfo.token);
+     this.$emit("myclick")
+    //  做自定义点击事件的话要放在这里
+  },
+  methods:{
+    handleLogout(){
+      // console.log(123);
+      // 清除登录信息      路径
+      this.$store.commit("user/clearUserInfo")
+      this.$message({
+                type:"success",
+                message: "退出成功"
+            })
+    },
   }
 };
 </script>

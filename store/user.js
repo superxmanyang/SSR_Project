@@ -26,7 +26,15 @@ export const mutations ={
      //data是后台返回的用户信息
      state.userInfo=data;
      
-   }
+   },
+   // 清空userInfo 
+//    这里在调用方法不需要上传参数所以不需要data
+   clearUserInfo(state){
+    state.userInfo = {
+        token:"",
+        user: {}
+    }
+}
 
 };
 
