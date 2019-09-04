@@ -1,8 +1,8 @@
 <template >
   <div class="container">
     <!-- 灵活对方方式 -->
-     <!-- justify-content:space-between; 左右贴边对齐 -->
-      <!-- 文档： https://element.eleme.cn/#/zh-CN/component/layout#dui-qi-fang-shi -->
+    <!-- justify-content:space-between; 左右贴边对齐 -->
+    <!-- 文档： https://element.eleme.cn/#/zh-CN/component/layout#dui-qi-fang-shi -->
     <el-row type="flex" class="main" justify="space-between">
       <!-- logo -->
       <div class="logo">
@@ -21,13 +21,29 @@
 
       <!-- 登陆跳转 -->
       <!-- v-if v-else 简单理解 就是得到的boolean再来渲染页面 -->
-      <div v-if="!$store.state.user.userInfo.token">
+      <!-- <div v-if="!$store.state.user.userInfo.token"> -->
+        <div v-if="false">
         <nuxt-link to="/user/login">登陆 / 注册</nuxt-link>
       </div>
-        
-        <div v-else>
-          {{$store.state.user.userInfo.user.nickname}}
-        </div>
+
+      <div v-else>
+        <!-- {{$store.state.user.userInfo.user.nickname}} -->
+        <el-dropdown>
+  
+          <span class="el-dropdown-link">  
+<!-- 不懂为什么在axios下面获取链接加在下面在打印看看   store是固定写法 state是仓库的数据 state.user.userInfo是看看user.js里面 配合console可以理解 剩下的看控制台network-->
+             <!-- 头像,昵称 -->
+            <img :src="` ${$axios.defaults.baseURL}${$store.state.user.userInfo.user.defaultAvatar} `" >
+             <span>{{$store.state.user.userInfo.user.nickname}}</span>                          
+           <i class="el-icon-arrow-down el-icon--right"></i>                        
+            
+          </span>
+          <el-dropdown-menu slot="dropdown">
+            <el-dropdown-item>个人中心</el-dropdown-item>
+            <el-dropdown-item>退出</el-dropdown-item>
+          </el-dropdown-menu>
+        </el-dropdown>
+      </div>
     </el-row>
   </div>
   <!-- // 这里设置一个单独的组件是为了有公共的样式 -->
@@ -35,10 +51,11 @@
 
 <script>
 export default {
-   //组件加载
-   mounted(){
-        console.log(this.$store.state.user.userInfo.token)
-    }
+  //组件加载
+  mounted() {
+    // console.dir(this.$axios);
+    console.log(this.$store.state.user.userInfo.token);
+  }
 };
 </script>
 
@@ -69,7 +86,7 @@ export default {
       border-bottom: 5px #409eff solid;
     }
   }
-        // 该class是nuxt会去自动匹配nuxt-link的to的值，如果url和to的值相等会自动加上下面的class
+  // 该class是nuxt会去自动匹配nuxt-link的to的值，如果url和to的值相等会自动加上下面的class
 
   .nuxt-link-exact-active {
     background: #409eff;
@@ -89,4 +106,15 @@ export default {
     display: block;
   }
 }
+.el-dropdown-link img{
+        width: 36px;
+        height:36px;
+        border-radius: 50%;
+        vertical-align: middle;
+        box-sizing: border-box;
+        border:2px #fff solid;
+        &:hover{
+            border:2px #409eff solid;
+        }
+    }
 </style>

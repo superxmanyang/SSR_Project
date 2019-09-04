@@ -5,6 +5,9 @@
 //state 是仓库的数据
 //mutations 同步修改state的数据 
 //actions  异步修改数据，其实也可不用/
+
+
+// 加return可以防止报错
 export const state =()=>({
     userInfo:{
         token:"",
