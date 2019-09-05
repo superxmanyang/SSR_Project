@@ -133,7 +133,28 @@ export default {
 
         // 注册
         handleRegSubmit(){
-           console.log(this.form)
+        //    console.log(this.form)
+        // ref 加在普通的元素上，用this.$refs.（ref值） 获取到的是dom元素
+        // ref 加在子组件上，用this.$refs.（ref值） 获取到的是组件实例，可以使用组件的所有方法。在使用方法的时候直接this.$refs.（ref值）.方法（） 就可以使用了。
+       this.$refs.form.validate( valid => {
+                if(valid){
+                    
+                    // 可以使用...+变量名会指向剩余的属性
+                    const {checkPassword, ...rest} = this.form;
+                    
+                    // 调用注册接口
+                    this.$axios({   
+                        url:"/accounts/register",
+                        method: "POST",
+                        data: rest
+                    }).then(res => {
+                        // 注册成功后帮用户自动登录
+                        // commit接受两个参数，第一个mutations参数是方法名，第二个参数数据 参考user.js里面setUserInfo
+                        this.$store.commit("user/setUserInfo", res.data)
+                    })
+                }
+            });
+
         }
     }
 }
