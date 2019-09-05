@@ -31,7 +31,9 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
-    
+     // axios的拦截插件
+     '@/plugins/axios',
+     
     '@/plugins/element-ui',
      //  本地存储的插件
      { src: '@/plugins/localStorage.js', ssr: false }
