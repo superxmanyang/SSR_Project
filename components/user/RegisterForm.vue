@@ -14,7 +14,8 @@
                 <el-input v-model='form.captcha'
                 placeholder="验证码" >
                     <template slot="append">
-                        <el-button @click="handleSendCaptcha">
+                         <!-- 内部实现了调用 this.$emit("click") 触发传递的方法-->
+                        <el-button @click="handleSendCaptcha" >
                             发送验证码
                         </el-button>
                     </template>
@@ -94,8 +95,40 @@ export default {
     methods: {
         // 发送验证码
         handleSendCaptcha(){
+ 
+        // 如果用户不填我们要先给他一个判断
+         // 判断如果手机号码是空，不请求
+        if(!this.form.username){
+            this.$message.error("请输入号码");
+            return
+        }
 
-        },
+
+
+         this.$axios({
+             url:"/captchas",
+             method:"POST",
+             data:{
+                 tel:this.form.username //手机号码
+             }
+         }).then(res=>{
+            //  console.log(res);
+
+            // 结构出code属性
+            const {code} = res.data;
+       
+            // 听大哥的看文档  // 文档地址：https://element.eleme.cn/#/zh-CN/component/message-box#xiao-xi-ti-shi
+            this.$alert(`模拟手机验证码是：${code}`,"提示")
+
+            // 类似于
+            // this.$message({
+            //         type:"success",
+            //         message: `模拟手机验证码是：${code}`
+            //     })
+         })
+         
+         
+         },
 
 
         // 注册
