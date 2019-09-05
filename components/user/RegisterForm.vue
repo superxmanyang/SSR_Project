@@ -4,13 +4,13 @@
         ref="form" 
         :rules="rules" 
         class="form">
-            <el-form-item class="form-item" >
+            <el-form-item class="form-item" prop="username">
                 <el-input  v-model="form.username" 
                 placeholder="用户名手机">
                 </el-input>
             </el-form-item>
 
-            <el-form-item class="form-item" >
+            <el-form-item class="form-item" prop="captcha">
                 <el-input v-model='form.captcha'
                 placeholder="验证码" >
                     <template slot="append">
@@ -21,20 +21,20 @@
                 </el-input>
             </el-form-item>
 
-            <el-form-item class="form-item" >
+            <el-form-item class="form-item" prop="nickname">
                 <el-input v-model='form.nickname'
                 placeholder="你的名字">
                 </el-input>
             </el-form-item>
 
-            <el-form-item class="form-item">
+            <el-form-item class="form-item" prop="password">
                 <el-input  v-model='form.password'
                 placeholder="密码" 
                 type="password"
                 ></el-input>
             </el-form-item>
 
-            <el-form-item class="form-item" >
+            <el-form-item class="form-item" prop="checkPassword">
                 <el-input v-model='form.checkPassword'
                 placeholder="确认密码" 
                 type="password">
@@ -53,6 +53,21 @@
 <script>
 export default {
     data(){
+
+        // rule当前的规则，目前是空的
+        // value输入框的值
+        // callback是回调函数，必须要调用
+        const checkPassword = (rule, value, callback) => {
+        if (value === '') {
+          callback(new Error('请再次输入密码'));
+        } else if (value !== this.form.password) {
+          callback(new Error('两次输入密码不一致!'));
+        } else {
+            // 代表验证通过
+          callback();
+        }
+      };
+
         return {
             // 表单数据
                 form: {
@@ -64,7 +79,16 @@ export default {
             },
             
             // 表单规则
-            rules: {},
+            rules: {
+                username:[{required:true ,message: '用户名不能为空', trigger: 'blur' }],
+                nickname:[{required:true , message: '昵称不能为空', trigger: 'blur' }],
+                captcha:[{required:true ,message: '验证码不能为空', trigger: 'blur' }],
+                password:[{required:true , message: '密码不能为空', trigger: 'blur' }], 
+                 // 文档地址：https://element.eleme.cn/#/zh-CN/component/form#zi-ding-yi-xiao-yan-gui-ze
+                // validator 不能改，表示指向验证函数
+               checkPassword:[{ validator: checkPassword, trigger: 'blur' }]
+
+            },
         }
     },
     methods: {

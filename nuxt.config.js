@@ -31,6 +31,7 @@ export default {
   ** Plugins to load before mounting the App
   */
   plugins: [
+    
     '@/plugins/element-ui',
      //  本地存储的插件
      { src: '@/plugins/localStorage.js', ssr: false }
@@ -41,7 +42,7 @@ export default {
   buildModules: [
   ],
   /*
-  ** Nuxt.js modules
+  ** Nuxt.js module
   */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
