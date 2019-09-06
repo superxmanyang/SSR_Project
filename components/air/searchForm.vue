@@ -43,6 +43,7 @@
             <el-form-item label="出发时间">
                 <!-- change 用户确认选择日期时触发 -->
                 <el-date-picker type="date" 
+                v-model="data"
                 placeholder="请选择日期" 
                 style="width: 100%;"
                 @change="handleDate">
@@ -80,6 +81,7 @@ export default {
                 {icon: "iconfont iconshuangxiang", name: "往返"}
             ],
             currentTab: 0,
+            data:""
         }
     },
     methods: {
@@ -119,9 +121,10 @@ export default {
             
         },
 
-        // 确认选择日期时触发
+        // 确认选择日期时触发l
+        // 里面的valus是日期，等等我们用momentjs
         handleDate(value){
-           
+           console.log(value);
         },
 
         // 触发和目标城市切换时触发
