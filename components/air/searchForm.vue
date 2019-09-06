@@ -25,6 +25,7 @@
                 placeholder="请搜索出发城市"
                 @select="handleDepartSelect"
                 class="el-autocomplete"
+                v-model="form.departCity"
                 ></el-autocomplete>  
             </el-form-item>
 
@@ -43,7 +44,7 @@
             <el-form-item label="出发时间">
                 <!-- change 用户确认选择日期时触发 -->
                 <el-date-picker type="date" 
-                v-model="data"
+              
                 placeholder="请选择日期" 
                 style="width: 100%;"
                 @change="handleDate">
@@ -81,7 +82,15 @@ export default {
                 {icon: "iconfont iconshuangxiang", name: "往返"}
             ],
             currentTab: 0,
-            data:""
+            // data:""
+            form:{
+               departCity: "", // 出发城市
+                departCode: "", // 出发城市代码
+                destCity: "",
+                destCode: "",
+                departDate: ""
+                // 这个应该是自己起的名字明天问大哥
+            }
         }
     },
     methods: {
@@ -90,15 +99,44 @@ export default {
             
         },
         
-        // 出发城市输入框获得焦点时触发
-        // value 是选中的值，cb是回调函数，接收要展示的列表
+          // value是输入框的值
+        // cb是一个回调函数必须要调用，参数的值会显示在下拉框中。
+        // cb调用时候必须要接受一个数组，数组中的元素必须是一个对象，对象中必须有value属性  
         queryDepartSearch(value, cb){
-           var res=([
-                {value: 1,name:'papan'},
-                {value: 2},
-                {value: 3},
-            ]);
-           cb(res)
+          //  var res=([
+          //       {value: 1,name:'papan'},
+          //       {value: 2},
+          //       {value: 3},
+          //   ]);
+            if(!value){
+                return;
+            }
+            // 发现一个会出现所有的秘密
+          this.$axios({
+             // get参数
+            url:"/airs/city",
+            params:{
+               // 输入框的关键字 应该是get请求的方法明天问大哥
+               name:value
+            }
+          }).then(res=>{
+            //  console.log(res.data);
+            // 可以看到我们下拉列表的东西是没有'是没有市'这个字
+            const{data} = res.data;
+            // 分解这个出来为了下面方面用
+           
+
+            // 给数组中每个对象添加value属性
+            const newData=[];
+
+            data.forEach(v=>{
+              v.value=v.name.replace("市","");  //标记问大哥
+               // 把带有value属性的对象添加到新数组中
+               newData.push(v);
+            })
+            cb(newData)
+          })
+          //  cb(res)
         },
 
         // 目标城市输入框获得焦点时触发
