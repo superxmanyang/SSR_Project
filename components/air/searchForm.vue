@@ -35,7 +35,8 @@
                 :fetch-suggestions="queryDestSearch"
                 placeholder="请搜索到达城市"
                 @select="handleDestSelect"
-                class="el-autocomplete"
+                class="el-autocomplete" 
+                   v-model="form.destCity"
                 ></el-autocomplete>
             </el-form-item>
 
@@ -47,7 +48,9 @@
               
                 placeholder="请选择日期" 
                 style="width: 100%;"
-                @change="handleDate">
+                @change="handleDate"
+                v-model="form.departDate">
+                
                 </el-date-picker>
             </el-form-item>
 
@@ -74,6 +77,10 @@
 </template>
 
 <script>
+
+import moment from "moment";
+
+
 export default {
     data(){
         return {
@@ -84,7 +91,7 @@ export default {
             currentTab: 0,
             // data:""
             form:{
-               departCity: "", // 出发城市
+                departCity: "", // 出发城市
                 departCode: "", // 出发城市代码
                 destCity: "",
                 destCode: "",
@@ -109,6 +116,8 @@ export default {
           //       {value: 3},
           //   ]);
             if(!value){
+                // 传递空数组不会出现下拉框
+              cb([]);
                 return;
             }
             // 发现一个会出现所有的秘密
@@ -142,11 +151,40 @@ export default {
         // 目标城市输入框获得焦点时触发
         // value 是选中的值，cb是回调函数，接收要展示的列表
         queryDestSearch(value, cb){
-            cb([
-                {value: 1},
-                {value: 2},
-                {value: 3},
-            ]);
+            // cb([
+            //     {value: 1},
+            //     {value: 2},
+            //     {value: 3},
+            // ]);
+            if(!value){
+                // 传递空数组不会出现下拉框
+              cb([]);
+                return;
+            }
+              this.$axios({
+             // get参数
+            url:"/airs/city",
+            params:{
+               // 输入框的关键字 应该是get请求的方法明天问大哥
+               name:value
+            }
+          }).then(res=>{
+            //  console.log(res.data);
+            // 可以看到我们下拉列表的东西是没有'是没有市'这个字
+            const{data} = res.data;
+            // 分解这个出来为了下面方面用
+           
+
+            // 给数组中每个对象添加value属性
+            const newData=[];
+
+            data.forEach(v=>{
+              v.value=v.name.replace("市","");  //标记问大哥
+               // 把带有value属性的对象添加到新数组中
+               newData.push(v);
+            })
+            cb(newData)
+          })
         },
        
         // 出发城市下拉选择时触发
@@ -161,13 +199,19 @@ export default {
 
         // 目标城市下拉选择时触发
         handleDestSelect(item) {
-            
+             // 把选中的值设置给form
+            this.form.destCity = item.value;
+            this.form.destCode = item.sort;
         },
 
         // 确认选择日期时触发l
         // 里面的valus是日期，等等我们用momentjs
         handleDate(value){
-           console.log(value);
+          //  console.log(value);
+           // 转换
+            this.form.departDate = moment(value).format(`YYYY-MM-DD`);
+            // console.log(this.form.departDate);
+           
         },
 
         // 触发和目标城市切换时触发
@@ -177,7 +221,7 @@ export default {
 
         // 提交表单是触发
         handleSubmit(){
-           
+           console.log(this.form);
         }
     },
     mounted() {
