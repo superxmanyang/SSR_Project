@@ -151,7 +151,12 @@ export default {
        
         // 出发城市下拉选择时触发
         handleDepartSelect(item) {
-            console.log(item);
+            // console.log(item);
+               // 把选中的值设置给form
+              //  不懂这个为什么要拿form
+            this.form.departCity = item.value;
+            this.form.departCode = item.sort;
+            
         },
 
         // 目标城市下拉选择时触发
