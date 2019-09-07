@@ -17,9 +17,11 @@
                 
                 <!-- 航班信息 -->
                 <div>
+                    <!-- 下面是儿子，这个是爸爸 -->
                   <FlightsItem
                   v-for="(item, index) in flightsData.flights" 
                     :key="index" 
+                    :data="item"
                     />
                 </div>
             </div>
@@ -62,7 +64,11 @@ export default {
         // 可以打印出后台传给的数据
          // 赋值给总数据
             this.flightsData = res.data;
-            // console.log(this.flightsData);想知道上面为什么这样写就打印这个
+            console.log("--------------");
+            console.log(this.flightsData);
+            console.log("-------------------");
+
+            // 想知道上面为什么这样写就打印这个
     })
     }
 }
