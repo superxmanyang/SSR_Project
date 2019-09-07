@@ -4,7 +4,8 @@
         <!-- 头部tab切换 -->
         <el-row type="flex" class="search-tab">
             <span v-for="(item, index) in tabs" :key="index"
-            @click="handleSearchTab(item, index)"
+            @click="handleSearchTab(index)"
+            
             :class="{active: index === currentTab}">
                 <i :class="item.icon"></i>{{item.name}}
             </span>
@@ -105,9 +106,11 @@ export default {
    
 
     methods: {
-        // tab切换时触发
-        handleSearchTab(item, index){
-            
+        // tab切换时触发   <!--为什么这个方法要有两个参数现在只要一个了 -->
+        handleSearchTab(index){
+            if(index===1){
+              this.$alert("目前暂时不支持往返", "提示")
+            }
         },
         
 
@@ -243,7 +246,17 @@ export default {
 
         // 触发和目标城市切换时触发
         handleReverse(){
-            
+            const{departCity,departCode,destCity,destCode}=this.form;
+ 
+                // 交叉赋值
+                this.form.departCity=destCity;
+                this.form.departCode=destCode;
+                this.form.destCity=departCity;
+                this.form.destCode=departCode;
+
+
+
+
         },
 
         // 提交表单是触发
