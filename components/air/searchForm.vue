@@ -248,7 +248,31 @@ export default {
 
         // 提交表单是触发
         handleSubmit(){
-           console.log(this.form);
+          //  console.log(this.form);
+
+          const{departCity,destCity,departDate}=this.form
+
+          if(!departCity){
+            this.$alert("出发城市不能为空", "提示");
+            return;
+          }
+          if(!destCity){
+            this.$alert("到达城市不能为空", "提示");
+            return;
+          }
+          if(!departDate){
+            this.$alert("出发时间不能为空", "提示");
+            return;
+          }
+
+
+          // 跳转到机票列表页 /air/flights
+          this.$router.push({
+            path:"/air/flights",
+
+            // url携带的参数
+            query:this.form
+          })
         }
     },
     mounted() {
