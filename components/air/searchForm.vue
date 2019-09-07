@@ -5,6 +5,7 @@
         <el-row type="flex" class="search-tab">
             <span v-for="(item, index) in tabs" :key="index"
             @click="handleSearchTab(index)"
+                             
             
             :class="{active: index === currentTab}">
                 <i :class="item.icon"></i>{{item.name}}
@@ -107,11 +108,14 @@ export default {
 
     methods: {
         // tab切换时触发   <!--为什么这个方法要有两个参数现在只要一个了 -->
-        handleSearchTab(index){
-            if(index===1){
 
+
+        // 这里可以在下面打印一下因为是需要一个值就可以达到效果
+        handleSearchTab(index){
+            if(index === 1){
+              // console.log(item);
               this.$alert("目前暂时不支持往返", "提示")
-              
+
             }
         },
         
@@ -226,12 +230,13 @@ export default {
               //  不懂这个为什么要拿form
             this.form.departCity = item.value;
             this.form.departCode = item.sort;
-            
+           
         },
 
         // 目标城市下拉选择时触发
         handleDestSelect(item) {
              // 把选中的值设置给form
+             console.log(item);
             this.form.destCity = item.value;
             this.form.destCode = item.sort;
         },

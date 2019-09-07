@@ -66,18 +66,23 @@ import SearchForm from "@/components/air/searchForm";
 
 export default {
 
-  // 这个datareturn是什么 忘了
+  // 存储数据
     data(){
     return {
-      sales: ""// 特价机票的数组
+      sales: []// 特价机票的数组 因为这个请求的是用[]的对象，下面请求什么最好就用什么返回数据
     }
   },
+
 
   components: {
     SearchForm
   },
+  
+  // 事件
+  // methods
 
-
+ 
+  // 不需要手动的操作的任何事件，页面加载完成马上执行
   mounted() {
     this.$axios({
       url:"/airs/sale"

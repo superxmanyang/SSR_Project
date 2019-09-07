@@ -17,7 +17,10 @@
                 
                 <!-- 航班信息 -->
                 <div>
-                  <FlightsItem/>
+                  <FlightsItem
+                  v-for="(item, index) in flightsData.flights" 
+                    :key="index" 
+                    />
                 </div>
             </div>
 
@@ -37,14 +40,34 @@ import moment from "moment";
 export default {
     data(){
         return {
-            
+
+             // 机票列表返回的总数据，总数据包含4个属性，flights/info/options/tatol
+            flightsData: {} 
         }
     },
     components:{
         FlightsListHead,
         FlightsItem
+    },
+   
+    mounted(){  
+
+    //   console.log(this.$route);这个算是一种方法
+    this.$axios({
+        url:'airs',
+        //这个只可以传对象  上面的console可以教你许多
+        params:this.$route.query
+    }).then(res=>{
+        // console.log(res);
+        // 可以打印出后台传给的数据
+         // 赋值给总数据
+            this.flightsData = res.data;
+            // console.log(this.flightsData);想知道上面为什么这样写就打印这个
+    })
     }
 }
+    
+
 </script>
 
 <style scoped lang="less">
