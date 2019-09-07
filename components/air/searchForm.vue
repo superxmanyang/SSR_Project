@@ -109,7 +109,9 @@ export default {
         // tab切换时触发   <!--为什么这个方法要有两个参数现在只要一个了 -->
         handleSearchTab(index){
             if(index===1){
+
               this.$alert("目前暂时不支持往返", "提示")
+              
             }
         },
         
