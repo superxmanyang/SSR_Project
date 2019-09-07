@@ -82,6 +82,8 @@ import moment from "moment";
 
 
 export default {
+
+
     data(){
         return {
             tabs: [
@@ -100,12 +102,16 @@ export default {
             }
         }
     },
+   
+
     methods: {
         // tab切换时触发
         handleSearchTab(item, index){
             
         },
         
+
+
           // value是输入框的值
         // cb是一个回调函数必须要调用，参数的值会显示在下拉框中。
         // cb调用时候必须要接受一个数组，数组中的元素必须是一个对象，对象中必须有value属性  
@@ -120,6 +126,12 @@ export default {
               cb([]);
                 return;
             }
+
+
+
+
+
+
             // 发现一个会出现所有的秘密
           this.$axios({
              // get参数
@@ -142,7 +154,16 @@ export default {
               v.value=v.name.replace("市","");  //标记问大哥
                // 把带有value属性的对象添加到新数组中
                newData.push(v);
-            })
+            });
+
+            // 默认选中第一个
+            this.form.departCity = newData[0].value;
+            this.form.departCode = newData[0].sort;
+
+
+
+
+
             cb(newData)
           })
           //  cb(res)
@@ -182,7 +203,13 @@ export default {
               v.value=v.name.replace("市","");  //标记问大哥
                // 把带有value属性的对象添加到新数组中
                newData.push(v);
-            })
+            });
+
+               // 默认选中第一个
+                this.form.destCity = newData[0].value;
+                this.form.destCode = newData[0].sort;
+
+
             cb(newData)
           })
         },
