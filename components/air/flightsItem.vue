@@ -50,6 +50,7 @@
                 </el-col>
             </el-row>
         </div>
+          {{data.value}}
     </div>
 </template>
 
@@ -57,13 +58,19 @@
 export default {
 
     props: {
-        // 数据
-        data: {
 
-            
+     // 不清楚data的类型，引用的错误
+        // props: ["data"]
+    
+     
+        //data表示组件可以接收的属性
+        data: {
+        //如果用对象的方式上面的 {{data.value}}就不容易报错
+       
             type: Object,
             // 默认是空数组
             // 这里不懂问大哥
+            // 如果调用组件不传值，采用default的默认值
             default: {}
         }
     }
