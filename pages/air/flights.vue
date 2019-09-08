@@ -19,7 +19,7 @@
                 <div>
                     <!-- 下面是儿子，这个是爸爸 -->
                   <FlightsItem
-                  v-for="(item, index) in flightsData.flights" 
+                  v-for="(item, index) in dataList" 
                     :key="index" 
                     :data="item"
                     />
@@ -65,7 +65,10 @@ export default {
 
              // 机票列表返回的总数据，总数据包含4个属性，flights/info/options/tatol
             flightsData: {} ,
-
+              
+             // 当前显示的列表数组
+             dataList:[],
+             
              pageIndex:1, // 当前的页码
             pageSize: 5, // 当前的条数
             total: 0     // 总条数
@@ -88,11 +91,18 @@ export default {
         // 可以打印出后台传给的数据
          // 赋值给总数据
             this.flightsData = res.data;
-            console.log("--------------");
-            console.log(this.flightsData);
-            console.log("-------------------");
-
+            // console.log("--------------");
+            // console.log(this.flightsData);
+            // console.log("-------------------");
             // 想知道上面为什么这样写就打印这个
+
+
+
+            // 分页的总条数
+            this.total=this.flightsData.flights.length;
+
+             // 第一页的值
+            this.dataList=this.flightsData.flights.slice(0,5);
     })
     },
 
