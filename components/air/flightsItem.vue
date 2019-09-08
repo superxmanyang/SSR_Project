@@ -22,7 +22,7 @@
                     </el-row>
                 </el-col>
                 <el-col :span="6" class="flight-info-right">
-                    ￥<span class="sell-price">{{data.base_price}}</span>起
+                    ￥<span class="sell-price">{{data.base_price/2}}</span>起
                 </el-col>
             </el-row>
         </div>
@@ -31,12 +31,15 @@
             <el-row type="flex"  justify="space-between" align="middle">
                 <el-col :span="4">低价推荐</el-col>
                 <el-col :span="20">
-                    <el-row type="flex" justify="space-between" align="middle" class="flight-sell">
+                    <el-row type="flex" justify="space-between" align="middle" class="flight-sell"
+                    v-for="(item,index) in data.seat_infos" :key="index"
+                    >
+                   
                         <el-col :span="16" class="flight-sell-left">
-                            <span>经济舱</span> | 上海一诺千金航空服务有限公司
+                            <span>{{item.name}}</span> | {{item.supplierName}}
                         </el-col>
                         <el-col :span="5" class="price">
-                            ￥1345
+                           ￥{{ item.org_settle_price }}
                         </el-col>
                         <el-col :span="3" class="choose-button">
                             <el-button 
@@ -44,7 +47,7 @@
                             size="mini">
                             选定
                             </el-button>
-                            <p>剩余：83</p>
+                            <p>剩余：{{ item.discount }}</p>
                         </el-col>
                     </el-row>
                 </el-col>
@@ -83,10 +86,10 @@ export default {
 
              // 出发时间,返回值是数组 注意split的方法得到的是[08],[00]
             const dep =this.data.dep_time.split(":")
-            console.log(this.data.dep_time);
+            // console.log(this.data.dep_time);
 
             const arr = this.data.arr_time.split(":")
-            console.log(this.data.arr_time);
+            // console.log(this.data.arr_time);
 
            // 如果到达的小时小于出发的小时，说明到第二天，需要到达小时 +24
 
@@ -94,7 +97,8 @@ export default {
 
                arr[0] = +arr[0] + 24;
 
-                // arr[0] += 24;老师的办法不行我们要强制转换 arr[0]
+                // arr[0] += 24;
+                // 老师的办法不行我们要强制转换 arr[0]
                
            }
 
@@ -105,19 +109,19 @@ export default {
            const arrVal = arr[0] * 60 + +arr[1];
             // 出发时间啊的分钟
            const depVal = dep[0]*60+ +dep[1];     
-           console.log(depVal);
+        //    console.log(depVal);
         //    console.log(arrVal,depVal);
              // 相隔的总分钟
              const dis = arrVal-depVal;
 
 
-             console.log(dis);
+            //  console.log(dis);
 
 
              // 向下取整获取小时
             const hours =Math.floor(dis/60);
 
-            console.log(hours);
+            // console.log(hours);
              
             const min = dis % 60;
             
