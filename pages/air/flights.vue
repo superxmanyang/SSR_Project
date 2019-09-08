@@ -81,6 +81,11 @@ export default {
    
     mounted(){  
 
+
+
+//   上面return有数据，下面就用this
+
+
     //   console.log(this.$route);这个算是一种方法
     this.$axios({
         url:'airs',
@@ -115,8 +120,18 @@ export default {
 
         },
 
-        // 页码切换时候触发
-        handleCurrentChange(){
+        // 页码切换时候触发, val是点击的页码
+        handleCurrentChange(val){
+            // console.log(val);
+
+            this.pageIndex=val; // 当前页
+
+
+             // 按照数学公式切换dataList的值
+             this.dataList = this.flightsData.flights.slice(
+                 (this.pageIndex-1)*this.pageSize,
+                 this.pageIndex*this.pageSize
+             )
         }
     }
 }
