@@ -4,8 +4,8 @@
 
             <!-- 顶部过滤列表 -->
             <div class="flights-content">
-                <!-- 过滤条件 -->
-                <FlightsFilters :data="flightsData" />
+                <!-- 过滤条件 -->                      
+                <FlightsFilters :data="flightsData" @setDataList="setDataList"/>
                 
                 <!-- 航班头部布局 -->
                 <div>
@@ -122,7 +122,19 @@ export default {
 
     methods:{
         // 事件里都是自己起的
-
+ 
+     // 该方法传递给子组件用于修改dataList
+     setDataList(arr){
+         this.flightsData.flights = arr;
+           // 按照数学公式切换dataList的值
+            this.dataList = this.flightsData.flights.slice( 
+                (this.pageIndex - 1) * this.pageSize, 
+                this.pageIndex * this.pageSize 
+            );
+            // 修改总条数
+            this.total = arr.length;
+     },
+  
 
         // 每页条数切换时候触发  val是条数
         handleSizeChange(val){
