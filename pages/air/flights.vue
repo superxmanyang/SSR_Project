@@ -5,9 +5,7 @@
             <!-- 顶部过滤列表 -->
             <div class="flights-content">
                 <!-- 过滤条件 -->
-                <div>
-                    
-                </div>
+                <FlightsFilters/>
                 
                 <!-- 航班头部布局 -->
                 <div>
@@ -22,6 +20,7 @@
                   v-for="(item, index) in dataList" 
                     :key="index" 
                     :data="item"
+                    
                     />
                        
                     
@@ -58,6 +57,7 @@
 import FlightsListHead from "@/components/air/flightsListHead.vue"
 import FlightsItem from "@/components/air/flightsItem.vue"
 import moment from "moment";
+import FlightsFilters from "@/components/air/flightsFilters.vue"
 
 export default {
     data(){
@@ -76,7 +76,8 @@ export default {
     },
     components:{
         FlightsListHead,
-        FlightsItem
+        FlightsItem,
+        FlightsFilters
     },
    
     mounted(){  
@@ -108,12 +109,15 @@ export default {
 
              // 第一页的值
             this.dataList=this.flightsData.flights.slice(0,this.pageSize);
+
+            console.log(this.dataList);
     })
     },
 
 
     methods:{
         // 事件里都是自己起的
+
 
         // 每页条数切换时候触发  val是条数
         handleSizeChange(val){
