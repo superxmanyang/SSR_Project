@@ -5,7 +5,7 @@
             <!-- 顶部过滤列表 -->
             <div class="flights-content">
                 <!-- 过滤条件 -->
-                <FlightsFilters/>
+                <FlightsFilters :data="flightsData" />
                 
                 <!-- 航班头部布局 -->
                 <div>
@@ -64,7 +64,11 @@ export default {
         return {
 
              // 机票列表返回的总数据，总数据包含4个属性，flights/info/options/tatol
-            flightsData: {} ,
+            flightsData: {
+                 info: {}
+                 //这里必须放个空对象info，因为不放会Cannot read property 'departCity' of undefined
+                 //因为axios 先请求组件，组件先进里面就会变成空的，我们在这加一个，就算是空的，请求回来起码是个空对象不会报错。
+            } ,
               
              // 当前显示的列表数组
              dataList:[],
