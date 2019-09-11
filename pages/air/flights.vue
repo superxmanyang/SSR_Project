@@ -99,7 +99,8 @@ export default {
 //   上面return有数据，下面就用this
 
 
-    //   console.log(this.$route);这个算是一种方法
+    //   console.log(this.$route);
+    //   这个算是一种方法
     this.$axios({
         url:'airs',
         //这个只可以传对象  上面的console可以教你许多
