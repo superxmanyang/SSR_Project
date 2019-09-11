@@ -47,6 +47,7 @@
                             size="mini"
                              @click="handleChoose(item.seat_xid)"
                             >
+                            <!-- 这个item.seat_xid 可以在机票列表里面找到 -->
                             选定
                             </el-button>
                             <p>剩余：{{ item.discount }}</p>
