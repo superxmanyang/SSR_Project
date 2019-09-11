@@ -95,15 +95,43 @@ export default {
         FlightsAside
     },
    
+
+   watch:{
+         // watch可以监听this下的所有属性
+        $route(){
+            // 请求航班列表数据
+            this.getData();
+        }
+   },
+
+
+
+
+
+
+
+
+
     mounted(){  
+         
+   //   上面return 
+
+   
+   this.getData(); 
+   
+   },
 
 
+    methods:{
 
-//   上面return有数据，下面就用this
+        // 事件名字里都是自己起的
+
+   getData(){
 
 
-    //   console.log(this.$route);
-    //   这个算是一种方法
+       //DATA有数据，下面就用this
+       //   console.log(this.$route);
+       //   这个算是一种方法
     this.$axios({
         url:'airs',
         //这个只可以传对象  上面的console可以教你许多
@@ -131,12 +159,8 @@ export default {
 
             // console.log(this.dataList);
     })
-    },
-
-
-    methods:{
-        // 事件里都是自己起的
- 
+   },
+    
      // 该方法传递给子组件用于修改dataList
      setDataList(arr){
 
