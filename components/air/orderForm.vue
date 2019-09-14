@@ -202,7 +202,21 @@ export default {
                 seat_xid: this.$route.query.seat_xid,
                 air: this.$route.query.id
             }
-            console.log(data)
+            // console.log(data)
+              //提交订单
+
+             this.$axios({
+               url:"/airorders",
+               method:"POST",
+               headers:{
+                   // 可以给接口单独加上请求头
+                  Authorization: `Bearer ${this.$store.state.user.userInfo.token}`
+               },
+               data
+             }).then(res=>{
+                  console.log(res);
+             })
+
     }
   }
 };
