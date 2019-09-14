@@ -27,7 +27,22 @@
 
 <script>
 export default {
-    
+    mounted(){
+        // 因为mounted方法要比我们在仓库this.$store.state拿到token值要快，所以我们要设置一个setTimeout队列来延迟触发
+        setTimeout(()=>{
+            // console.log(this.$store.state);
+             this.$axios({
+                url: "/airorders/" + this.$route.query.id,
+                // 可以给接口单独加上请求头
+                headers: {
+                    Authorization: `Bearer ${this.$store.state.user.userInfo.token}`
+                },
+            }).then(res => {
+                console.log(res)
+                })
+        
+        },10)
+    }
 }
 </script>
 
