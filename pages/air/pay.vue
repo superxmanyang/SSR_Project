@@ -26,6 +26,8 @@
 </template>
 
 <script>
+
+import  QRCode from "qrcode";
 export default {
     mounted(){
         // 因为mounted方法要比我们在仓库this.$store.state拿到token值要快，所以我们要设置一个setTimeout队列来延迟触发
@@ -39,6 +41,20 @@ export default {
                 },
             }).then(res => {
                 console.log(res)
+
+                // 获取到canvas节点元素
+               var canvas = document.getElementById('qrcode-stage')
+
+                // 要生二维码的连接 解构出来
+                const {code_url} = res.data.payInfo;
+ 
+                                // 看文档前两个是必须的
+                QRCode.toCanvas(canvas, code_url, {
+                    width: 200
+
+
+                });
+
                 })
         
         },10)
