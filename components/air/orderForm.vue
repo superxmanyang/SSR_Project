@@ -32,8 +32,11 @@
       <div>
         <div class="insurance-item"
         v-for="(item,index) in infoData.insurances"  :key="index"
-        >
-          <el-checkbox :label="`${item.type}：￥${item.price}/份x1   最高赔付${item.compensation}`" border></el-checkbox>
+        > 
+          <el-checkbox :label="`${item.type}：￥${item.price}/份x1   最高赔付${item.compensation}`" 
+          border
+          @change="handleChange(item.id)"
+          ></el-checkbox>
         </div>
       </div>
     </div>
@@ -74,8 +77,13 @@ export default {
           id: ""
         }
       ],
+
+      // 保险数据id的集合
+      insurances: [],
        // 机票的数据
       infoData:[],
+
+
     };
   },
 
@@ -115,9 +123,28 @@ export default {
       const arr = this.users.splice(index, 1);
       console.log(arr);
     },
+ 
+  // 选中保险时候触发
+    handleChange(id){
+      
+    const index = this.insurances.indexOf(id);
+    // console.log(index);
 
+ if(index>-1){
+     this.insurances.splice(index,1)
+    
+ }else{
+//      // 添加id到数组
+      this.insurances.push(id);
+ }
+   
+
+     console.log( this.insurances);
+    },
+  
+  
     // 发送手机验证码
-    handleSendCaptcha() {},
+    handleSendCaptcha(){},
 
     // 提交订单
     handleSubmit() {
