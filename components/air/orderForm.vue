@@ -205,6 +205,29 @@ export default {
             // console.log(data)
               //提交订单
 
+            // 因为有一个是后台的的错误拦截，我们前端最好自己也写一个
+            // 判断乘机人
+            if(!this.users[0].username || !this.users[0].id){
+                this.$message.error("乘机人不能为空");
+                return;
+            }
+            // 联系人
+            if(!this.contactName){
+                this.$message.error("联系人不能为空");
+                return;
+            }
+            // 联系电话
+            if(!this.contactPhone){
+                this.$message.error("联系电话不能为空");
+                return;
+            }
+            // 联系电话
+            if(!this.captcha){
+                this.$message.error("验证码不能为空");
+                return;
+            }
+
+
              this.$axios({
                url:"/airorders",
                method:"POST",
