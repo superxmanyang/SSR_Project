@@ -280,7 +280,17 @@ export default {
                },
                data
              }).then(res=>{
-                  console.log(res);
+                  // console.log(res);
+
+                    // 打印上面res就可以查到订单id
+                const {id} = res.data.data;
+
+                   this.$router.push({
+                    path: "/air/pay",
+                    query: {
+                        id
+                    }
+                })
              })
 
     }
