@@ -65,6 +65,10 @@ export default {
                 //commit接受两个参数，第一个mutations参数是方法名,第二个是参数数据
                 // [vuex] unknown mutation type: /setUserInfo 报这个错失因为少了user
                 this.$store.commit("user/setUserInfo",res.data)
+
+
+                  // 返回上一页
+                        this.$router.back();
             })
             
         } else {
