@@ -64,7 +64,12 @@
         <el-button type="warning" class="submit" @click="handleSubmit">提交订单</el-button>
       </div>
     </div>
+
+        <!-- 模板中引用总价格触发计算 不把他放到一个模板中不会出发 -->
+        <span v-show="false">{{allPrice}}</span>
   </div>
+
+
 </template>
 
 <script>
@@ -101,6 +106,37 @@ export default {
 
 
     };
+  },
+
+  computed:{
+
+    allPrice(){
+ 
+      // console.log(123);
+
+        // 如果请求未完成，暂时不需要计算，返回0； 
+        //如果不设置后面的seat_infos会报错 因为this.infoData.seat_infos.org_settle_price后面没被定义;
+        if(!this.infoData.seat_infos){
+                return 0;
+            }
+
+              let price = 0
+
+           // 机票单价，取座位信息的第一个价格
+           price += this.infoData.seat_infos.org_settle_price;
+            // 燃油费
+            price += this.infoData.airport_tax_audlet;
+            
+            // 保险数据
+            price += 30 * this.insurances.length;
+            price *= this.users.length;
+
+         
+           // 把值存到store
+            this.$store.commit("air/setAllPrice", price)
+            return price;
+    }
+    
   },
 
   mounted(){
